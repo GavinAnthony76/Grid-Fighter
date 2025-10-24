@@ -3,6 +3,7 @@ function HTMLActuator() {
   this.scoreContainer   = document.querySelector(".score-container");
   this.bestContainer    = document.querySelector(".best-container");
   this.messageContainer = document.querySelector(".game-message");
+  this.announcerContainer = document.getElementById("game-announcer");
 
   this.score = 0;
 }
@@ -110,6 +111,7 @@ HTMLActuator.prototype.updateScore = function (score) {
   this.score = score;
 
   this.scoreContainer.textContent = this.score;
+  this.scoreContainer.setAttribute('aria-label', 'Current score: ' + this.score);
 
   if (difference > 0) {
     var addition = document.createElement("div");
@@ -117,11 +119,15 @@ HTMLActuator.prototype.updateScore = function (score) {
     addition.textContent = "+" + difference;
 
     this.scoreContainer.appendChild(addition);
+
+    // Announce score increase to screen readers
+    this.announce('Score increased by ' + difference + '. Current score: ' + this.score);
   }
 };
 
 HTMLActuator.prototype.updateBestScore = function (bestScore) {
   this.bestContainer.textContent = bestScore;
+  this.bestContainer.setAttribute('aria-label', 'Best score: ' + bestScore);
 };
 
 HTMLActuator.prototype.message = function (won) {
@@ -130,10 +136,29 @@ HTMLActuator.prototype.message = function (won) {
 
   this.messageContainer.classList.add(type);
   this.messageContainer.getElementsByTagName("p")[0].textContent = message;
+
+  // Announce game end to screen readers
+  var announcement = won
+    ? "Congratulations! You reached 2048 and won the game! Final score: " + this.score
+    : "Game over! No more moves available. Final score: " + this.score;
+  this.announce(announcement);
 };
 
 HTMLActuator.prototype.clearMessage = function () {
   // IE only takes one value to remove at a time.
   this.messageContainer.classList.remove("game-won");
   this.messageContainer.classList.remove("game-over");
+};
+
+// Announce game state changes to screen readers
+HTMLActuator.prototype.announce = function (message) {
+  if (this.announcerContainer) {
+    this.announcerContainer.textContent = message;
+
+    // Clear after a short delay to allow re-announcement of same message
+    var self = this;
+    setTimeout(function () {
+      self.announcerContainer.textContent = '';
+    }, 1000);
+  }
 };

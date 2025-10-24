@@ -26,6 +26,80 @@ Many thanks to [rayhaanj](https://github.com/rayhaanj), [Mechazawa](https://gith
 
 That screenshot is fake, by the way. I never reached 2048 :smile:
 
+## Developer Setup
+
+### Prerequisites
+- Node.js (v14 or higher recommended)
+- npm (comes with Node.js)
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/gabrielecirulli/2048.git
+cd 2048
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+### Development
+
+**Run the development server:**
+```bash
+npm start
+```
+Then open http://localhost:8000 in your browser.
+
+**Watch SCSS changes:**
+```bash
+npm run sass
+```
+
+**Run tests:**
+```bash
+npm test
+```
+
+**Run tests in watch mode:**
+```bash
+npm run test:watch
+```
+
+**Run tests with coverage:**
+```bash
+npm run test:coverage
+```
+
+**Lint JavaScript:**
+```bash
+npm run lint
+```
+
+**Build everything:**
+```bash
+npm run build
+```
+
+### Project Structure
+```
+2048/
+├── js/                  # JavaScript source files
+│   ├── game_manager.js      # Core game logic
+│   ├── grid.js              # Grid data structure
+│   ├── tile.js              # Tile model
+│   ├── html_actuator.js     # DOM updates
+│   ├── keyboard_input_manager.js  # Input handling
+│   └── local_storage_manager.js   # State persistence
+├── style/               # SCSS/CSS files
+│   └── main.scss            # Main stylesheet
+├── tests/               # Jest test files
+├── index.html          # Main HTML file
+└── package.json        # Project dependencies
+```
+
 ## Contributing
 Changes and improvements are more than welcome! Feel free to fork and open a pull request. Please make your changes in a specific branch and request to pull into `master`! If you can, please make sure the game fully works before sending the PR, as that will help speed up the process.
 

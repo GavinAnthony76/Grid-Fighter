@@ -21,49 +21,52 @@
     <div class="heading">
       <h1 class="title">2048</h1>
       <div class="scores-container">
-        <div class="score-container">0</div>
-        <div class="best-container">0</div>
+        <div class="score-container" role="status" aria-live="polite" aria-atomic="true" aria-label="Current score">0</div>
+        <div class="best-container" role="status" aria-label="Best score">0</div>
       </div>
     </div>
 
     <div class="above-game">
       <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
-      <a class="restart-button">New Game</a>
+      <a class="restart-button" role="button" tabindex="0" aria-label="Start a new game">New Game</a>
     </div>
 
-    <div class="game-container">
-      <div class="game-message">
+    <!-- Screen reader announcements -->
+    <div id="game-announcer" class="sr-only" role="status" aria-live="assertive" aria-atomic="true"></div>
+
+    <div class="game-container" role="application" aria-label="2048 game board">
+      <div class="game-message" role="alert" aria-live="assertive">
         <p></p>
         <div class="lower">
-	        <a class="keep-playing-button">Keep going</a>
-          <a class="retry-button">Try again</a>
+	        <a class="keep-playing-button" role="button" tabindex="0" aria-label="Continue playing after reaching 2048">Keep going</a>
+          <a class="retry-button" role="button" tabindex="0" aria-label="Start a new game">Try again</a>
         </div>
       </div>
 
-      <div class="grid-container">
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
+      <div class="grid-container" role="grid" aria-label="4x4 game grid">
+        <div class="grid-row" role="row">
+          <div class="grid-cell" role="gridcell"></div>
+          <div class="grid-cell" role="gridcell"></div>
+          <div class="grid-cell" role="gridcell"></div>
+          <div class="grid-cell" role="gridcell"></div>
         </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
+        <div class="grid-row" role="row">
+          <div class="grid-cell" role="gridcell"></div>
+          <div class="grid-cell" role="gridcell"></div>
+          <div class="grid-cell" role="gridcell"></div>
+          <div class="grid-cell" role="gridcell"></div>
         </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
+        <div class="grid-row" role="row">
+          <div class="grid-cell" role="gridcell"></div>
+          <div class="grid-cell" role="gridcell"></div>
+          <div class="grid-cell" role="gridcell"></div>
+          <div class="grid-cell" role="gridcell"></div>
         </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
+        <div class="grid-row" role="row">
+          <div class="grid-cell" role="gridcell"></div>
+          <div class="grid-cell" role="gridcell"></div>
+          <div class="grid-cell" role="gridcell"></div>
+          <div class="grid-cell" role="gridcell"></div>
         </div>
       </div>
 

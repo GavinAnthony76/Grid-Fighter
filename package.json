@@ -1,0 +1,54 @@
+{
+  "name": "2048-game",
+  "version": "1.0.0",
+  "description": "A small clone of 1024, based on Saming's 2048",
+  "main": "js/application.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "jshint js/**/*.js",
+    "sass": "sass --watch style/main.scss:style/main.css",
+    "sass:build": "sass style/main.scss:style/main.css",
+    "build": "npm run lint && npm run sass:build && npm test",
+    "start": "python3 -m http.server 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabrielecirulli/2048.git"
+  },
+  "keywords": [
+    "game",
+    "2048",
+    "puzzle",
+    "javascript",
+    "html5"
+  ],
+  "author": "Gabriele Cirulli",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jshint": "^2.13.6",
+    "sass": "^1.69.5"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "js/**/*.js",
+      "!js/*_polyfill.js",
+      "!js/application.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      }
+    }
+  }
+}
