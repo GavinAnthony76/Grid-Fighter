@@ -70,9 +70,10 @@ class KeyboardInputManager {
     this.bindButtonPress(".restart-button", this.restart);
     this.bindButtonPress(".keep-playing-button", this.keepPlaying);
 
-    // Respond to swipe events
+    // Respond to swipe events with improved mobile handling
     const MIN_SWIPE_DISTANCE = 10; // pixels
-    let touchStartClientX, touchStartClientY;
+    const MIN_SWIPE_VELOCITY = 0.1; // pixels per millisecond
+    let touchStartClientX, touchStartClientY, touchStartTime;
     const gameContainer = document.getElementsByClassName("game-container")[0];
 
     gameContainer.addEventListener(this.eventTouchstart, (event) => {
@@ -89,6 +90,7 @@ class KeyboardInputManager {
         touchStartClientY = event.touches[0].clientY;
       }
 
+      touchStartTime = Date.now();
       event.preventDefault();
     });
 
@@ -118,9 +120,19 @@ class KeyboardInputManager {
       const dy = touchEndClientY - touchStartClientY;
       const absDy = Math.abs(dy);
 
-      if (Math.max(absDx, absDy) > MIN_SWIPE_DISTANCE) {
-        // (right : left) : (down : up)
-        this.emit("move", absDx > absDy ? (dx > 0 ? 1 : 3) : (dy > 0 ? 2 : 0));
+      const touchDuration = Date.now() - touchStartTime;
+      const distance = Math.max(absDx, absDy);
+      const velocity = distance / touchDuration;
+
+      // Improved swipe detection with velocity check
+      if (distance > MIN_SWIPE_DISTANCE && velocity > MIN_SWIPE_VELOCITY) {
+        const direction = absDx > absDy ? (dx > 0 ? 1 : 3) : (dy > 0 ? 2 : 0);
+        this.emit("move", direction);
+
+        // Haptic feedback on mobile if available
+        if (window.navigator.vibrate) {
+          window.navigator.vibrate(10);
+        }
       }
     });
   }

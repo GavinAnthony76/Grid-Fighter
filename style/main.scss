@@ -560,3 +560,123 @@ hr {
     }
   }
 }
+
+// Mobile-specific optimizations
+@media screen and (max-width: 520px) {
+  body {
+    margin: 20px 0;
+  }
+
+  h1.title {
+    font-size: 50px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  // Optimize touch targets for mobile
+  .restart-button, .retry-button, .keep-playing-button {
+    min-height: 44px; // iOS minimum touch target
+    min-width: 44px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+
+  // Improve button touch feedback
+  .restart-button:active, .retry-button:active, .keep-playing-button:active {
+    transform: scale(0.95);
+  }
+
+  // Optimize score containers for mobile
+  .score-container, .best-container {
+    padding: 10px 15px;
+    font-size: 20px;
+  }
+}
+
+// Performance optimizations for mobile
+@media screen and (max-width: 520px) {
+  // Use GPU acceleration for animations
+  .tile, .tile .tile-inner {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  // Optimize grid rendering
+  .grid-container {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  // Reduce animation complexity on mobile
+  .tile {
+    transition: $transition-speed ease-in-out;
+    transition-property: transform;
+  }
+}
+
+// Landscape orientation optimizations
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  body {
+    margin: 10px 0;
+  }
+
+  h1.title {
+    font-size: 40px;
+  }
+
+  .game-intro {
+    display: none; // Save vertical space
+  }
+
+  .game-explanation {
+    font-size: 14px;
+  }
+}
+
+// Very small screens (iPhone SE, etc.)
+@media screen and (max-width: 375px) {
+  h1.title {
+    font-size: 40px;
+  }
+
+  .score-container, .best-container {
+    font-size: 18px;
+    padding: 8px 12px;
+  }
+
+  .game-intro {
+    font-size: 16px;
+  }
+}
+
+// Prevent zoom on input focus (iOS)
+@media screen and (max-width: 520px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+// Dark mode support for mobile
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background: #1a1a1a;
+    color: #e0e0e0;
+  }
+
+  .game-container {
+    background: #333;
+  }
+
+  .grid-cell {
+    background: #2a2a2a;
+  }
+}

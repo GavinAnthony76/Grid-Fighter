@@ -10,16 +10,29 @@ class HTMLActuator {
   }
 
   actuate(grid, metadata) {
+    // Use requestAnimationFrame for smooth 60fps rendering on mobile
     window.requestAnimationFrame(() => {
       this.clearContainer(this.tileContainer);
+
+      // Use DocumentFragment for better mobile performance
+      const fragment = document.createDocumentFragment();
+      const tiles = [];
 
       grid.cells.forEach(column => {
         column.forEach(cell => {
           if (cell) {
-            this.addTile(cell);
+            tiles.push(cell);
           }
         });
       });
+
+      // Batch DOM updates
+      tiles.forEach(tile => {
+        const tileElement = this.createTileElement(tile);
+        fragment.appendChild(tileElement);
+      });
+
+      this.tileContainer.appendChild(fragment);
 
       this.updateScore(metadata.score);
       this.updateBestScore(metadata.bestScore);
@@ -34,24 +47,12 @@ class HTMLActuator {
     });
   }
 
-  // Continues the game (both restart and keep playing)
-  continueGame() {
-    this.clearMessage();
-  }
-
-  clearContainer(container) {
-    while (container.firstChild) {
-      container.removeChild(container.firstChild);
-    }
-  }
-
-  addTile(tile) {
+  createTileElement(tile) {
     const wrapper = document.createElement("div");
     const inner = document.createElement("div");
     const position = tile.previousPosition || { x: tile.x, y: tile.y };
     const positionClass = this.positionClass(position);
 
-    // We can't use classlist because it somehow glitches when replacing classes
     const classes = ["tile", `tile-${tile.value}`, positionClass];
 
     if (tile.value > 2048) classes.push("tile-super");
@@ -62,29 +63,35 @@ class HTMLActuator {
     inner.textContent = tile.value;
 
     if (tile.previousPosition) {
-      // Make sure that the tile gets rendered in the previous position first
       window.requestAnimationFrame(() => {
         classes[2] = this.positionClass({ x: tile.x, y: tile.y });
-        this.applyClasses(wrapper, classes); // Update the position
+        this.applyClasses(wrapper, classes);
       });
     } else if (tile.mergedFrom) {
       classes.push("tile-merged");
       this.applyClasses(wrapper, classes);
 
-      // Render the tiles that merged
       tile.mergedFrom.forEach(merged => {
-        this.addTile(merged);
+        const mergedElement = this.createTileElement(merged);
+        this.tileContainer.appendChild(mergedElement);
       });
     } else {
       classes.push("tile-new");
       this.applyClasses(wrapper, classes);
     }
 
-    // Add the inner part of the tile to the wrapper
     wrapper.appendChild(inner);
+    return wrapper;
+  }
 
-    // Put the tile on the board
-    this.tileContainer.appendChild(wrapper);
+  // Continues the game (both restart and keep playing)
+  continueGame() {
+    this.clearMessage();
+  }
+
+  clearContainer(container) {
+    // Optimized for mobile performance
+    container.innerHTML = '';
   }
 
   applyClasses(element, classes) {
