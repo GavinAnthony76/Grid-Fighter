@@ -3,22 +3,22 @@
 
 const CACHE_NAME = '2048-v1';
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/style/main.css',
-  '/js/bind_polyfill.js',
-  '/js/classlist_polyfill.js',
-  '/js/animframe_polyfill.js',
-  '/js/keyboard_input_manager.js',
-  '/js/html_actuator.js',
-  '/js/grid.js',
-  '/js/tile.js',
-  '/js/local_storage_manager.js',
-  '/js/game_manager.js',
-  '/js/application.js',
-  '/favicon.ico',
-  '/meta/apple-touch-icon.png',
-  '/manifest.json'
+  './',
+  './index.html',
+  './style/main.css',
+  './js/bind_polyfill.js',
+  './js/classlist_polyfill.js',
+  './js/animframe_polyfill.js',
+  './js/keyboard_input_manager.js',
+  './js/html_actuator.js',
+  './js/grid.js',
+  './js/tile.js',
+  './js/local_storage_manager.js',
+  './js/game_manager.js',
+  './js/application.js',
+  './favicon.ico',
+  './meta/apple-touch-icon.png',
+  './manifest.json'
 ];
 
 // Install event - cache assets

@@ -1,7 +1,12 @@
 // Register service worker for offline support
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
+    // Use relative path for GitHub Pages compatibility
+    const swPath = window.location.pathname.endsWith('/')
+      ? window.location.pathname + 'sw.js'
+      : window.location.pathname.replace(/\/[^/]*$/, '/sw.js');
+
+    navigator.serviceWorker.register('./sw.js')
       .then((registration) => {
         console.log('ServiceWorker registered:', registration.scope);
       })
