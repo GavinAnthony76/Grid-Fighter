@@ -579,6 +579,28 @@ hr {
     box-sizing: border-box;
   }
 
+  // Make game container responsive
+  .game-container {
+    width: calc(100vw - 20px); // Full width minus container padding
+    max-width: 500px;
+    height: calc(100vw - 20px); // Maintain square shape
+    max-height: 500px;
+    margin: 40px auto 0;
+  }
+
+  .grid-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  // Scale tiles proportionally
+  .grid-cell, .tile {
+    width: calc((100vw - 20px - 75px) / 4) !important; // (container width - padding*5) / 4
+    height: calc((100vw - 20px - 75px) / 4) !important;
+    max-width: 106.25px; // Original tile size
+    max-height: 106.25px;
+  }
+
   // Optimize touch targets for mobile
   .restart-button, .retry-button, .keep-playing-button {
     min-height: 44px; // iOS minimum touch target
